@@ -5,6 +5,7 @@ const teams = [];
 
 /***** Event Listeners *****/
 
+// This is triggered when we click the button on line 16 of index.html
 function onAddTeam() {
     const newTeam = {
         name: document.getElementById("team-name-input").value,
@@ -14,17 +15,20 @@ function onAddTeam() {
     renderApp();
 }
 
+// This is triggered when we click the button created by the renderTeam() function on line 56
 function onDeleteTeam(team) {
     const index = teams.indexOf(team);
     teams.splice(index, 1);
     renderApp();
 }
 
+// This is triggered when we click the button created by the renderMembersTable() function on line 118
 function onAddMember(team, member) {
     team.members.push(member);
     renderApp();
 }
 
+// This is triggered when we click the button created by the renderMemberRow() function on line 148
 function onDeleteMember(team, member) {
     let index = team.members.indexOf(member);
     team.members.splice(index, 1);
@@ -33,6 +37,7 @@ function onDeleteMember(team, member) {
 
 /***** Render Functions *****/
 
+// This is the top-level function, that calls the other render functions (or calls functions that call functions)
 function renderApp() {
     const teamsDiv = document.getElementById("teams");
     emptyElement(teamsDiv);
@@ -60,15 +65,16 @@ function renderTeam(team) {
     // Members Table
     teamDiv.appendChild( renderMembersTable(team) );
 
+    // We return the <div> and it's appended on line 45
     return teamDiv;
 }
 
 function renderMembersTable(team) {
-    const teamTable = document.createElement("table");
-    teamTable.className = "table table-dark table-striped";
+    const membersTable = document.createElement("table");
+    membersTable.className = "table table-dark table-striped";
 
     // Header Row
-    const headerRow = teamTable.insertRow(0);
+    const headerRow = membersTable.insertRow(0);
 
     // Header Row -> Name Label Cell
     const nameLabelCell = document.createElement("th");
@@ -85,7 +91,7 @@ function renderMembersTable(team) {
     headerRow.appendChild(createLabelCell);
 
     // Form Row
-    const formRow = teamTable.insertRow(1);
+    const formRow = membersTable.insertRow(1);
 
     // Form Row -> Name Input Cell
     const nameInputCell = document.createElement('td');
@@ -117,19 +123,19 @@ function renderMembersTable(team) {
     createButton.textContent = "Create";
     createButton.addEventListener("click", () => {
         const member = {
-            name: nameInput.value,
-            position: positionInput.value
+            name: nameInput.value, // the function will remember what nameInput was pointing to when it was created
+            position: positionInput.value // and what positionInput was pointing to when it was created
         }
-        onAddMember(team, member)
+        onAddMember(team, member) // This way onAddTeamMember() doesn't need to know how the form is set up
     })
     createButtonCell.appendChild(createButton);
 
     // Member Rows
     for(let member of team.members) {
-        teamTable.firstElementChild.appendChild( renderMemberRow(team, member) ) // firstElementChild is grabbing the <tbody>
+        membersTable.firstElementChild.appendChild( renderMemberRow(team, member) ) // firstElementChild is grabbing the <tbody>
     }
 
-    return teamTable;
+    return membersTable; // We return the <table> and it's appended on line 66
 }
 
 function renderMemberRow(team, member) {
@@ -148,7 +154,7 @@ function renderMemberRow(team, member) {
     );
     memberRow.insertCell(2).appendChild(deleteButton)
 
-    return memberRow;
+    return memberRow; // We return the <tr> and it's appended on line 135
 }
 
 /***** Helpers *****/
