@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col mt-5 border rounded p-3">
+                <label for="team-name-input" class="form-label">Team Name</label>
+                <input type="text" class="form-control" id="team-name-input"/>
+                <button type="button" class="btn btn-primary mt-3 w-100" onclick="onAddTeam()">Create</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="teams">
+                <!-- This is where the teams will be rendered -->
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="teams.js"></script>
+</body>
+</html>
